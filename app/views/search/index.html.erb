@@ -1,0 +1,25 @@
+<h1>Stations:</h1>
+
+<% @stations.each do |station| %>
+  <section class="station">
+    <div class="name">
+      station.name
+    </div>
+
+    <div class="address">
+      station.address
+    </div>
+
+    <div class="fuel_type">
+      station.fuel_type
+    </div>
+
+    <div class="distance">
+      station.distance
+    </div>
+
+    <div class="access_time">
+      station.access_time
+    </div>
+  </section>
+<% end %>
