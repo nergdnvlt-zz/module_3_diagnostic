@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def index
     @stations = StationsSearch.new(params['q']).stations
+    require 'pry'; binding.pry
   end
 end
 
@@ -21,7 +22,7 @@ class StationsSearch
     end
 
     sorted_stations = stations.sort_by { |station| station.distance }
-    require 'pry'; binding.pry
+    sorted_stations[0..9]
   end
 end
 
@@ -31,8 +32,8 @@ class Station
   def initialize(attrs)
     @name = attrs[:station_name]
     @address = attrs[:street_address]
-    @fuel_type = attrs[:distance]
-    @distance = attrs[:station_name]
+    @fuel_type = attrs[:fuel_type_code]
+    @distance = attrs[:distance]
     @access_time = attrs[:access_days_time]
   end
 end
