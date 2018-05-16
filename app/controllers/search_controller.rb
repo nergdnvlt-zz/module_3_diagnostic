@@ -1,7 +1,6 @@
 class SearchController < ApplicationController
   def index
     @stations = StationsSearch.new(params['q']).stations
-    require 'pry'; binding.pry
   end
 end
 
@@ -25,15 +24,3 @@ class StationsSearch
     sorted_stations[0..9]
   end
 end
-
-# class Station
-#   attr_reader :name, :address, :fuel_type, :distance, :access_time
-#
-#   def initialize(attrs)
-#     @name = attrs[:station_name]
-#     @address = attrs[:street_address]
-#     @fuel_type = attrs[:fuel_type_code]
-#     @distance = attrs[:distance]
-#     @access_time = attrs[:access_days_time]
-#   end
-# end
