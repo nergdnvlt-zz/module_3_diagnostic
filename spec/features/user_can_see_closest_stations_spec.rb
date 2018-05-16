@@ -19,12 +19,12 @@ feature 'User uses search' do
     # And the stations should be limited to Electric and Propane
     expect(page).to_not have_content('Gas')
     # And for each of the stations I should see Name, Address, Fuel Types, Distance, and Access Times
-    within('.station').first do
-      expect(page).to have_content('.name')
-      expect(page).to have_content('.addresss')
-      expect(page).to have_content('.fuel_type')
-      expect(page).to have_content('.distance')
-      expect(page).to have_content('.access_time')
+    within(first('.station')) do
+      expect(page).to have_css('.name')
+      expect(page).to have_css('.address')
+      expect(page).to have_css('.fuel_type')
+      expect(page).to have_css('.distance')
+      expect(page).to have_css('.access_time')
     end
   end
 end
