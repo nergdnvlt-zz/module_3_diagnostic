@@ -6,19 +6,33 @@ end
 
 class StationsSearch
 
-  def initialize
+  def initialize(zip)
     @zip = zip
   end
 
   def stations
-    conn = Faraday.new("https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?api_key=s7uscHW04X8llSdR1VVvLXgSsfeOMmfC3mTpeOrJ&location=#{zip}&radius=6.0&fuel_type=ELEC,LPG")
+    conn = Faraday.new("https://developer.nrel.gov/api/alt-fuel-stations/v1/nearest.json?api_key=s7uscHW04X8llSdR1VVvLXgSsfeOMmfC3mTpeOrJ&location=#{@zip}&radius=6.0&fuel_type=ELEC,LPG")
 
     request = conn.get { |req| }
 
-    raw_stations = JSON.parse(request.body, symbolize_names: true)
-
-    raw_stations.map do |station|
+    raw_stations = JSON.parse(request.body, symbolize_names: true)[:fuel_stations]
+    stations = raw_stations.map do |station|
       Station.new(station)
     end
+
+    sorted_stations = stations.sort_by { |station| station.distance }
+    require 'pry'; binding.pry
+  end
+end
+
+class Station
+  attr_reader :name, :address, :fuel_type, :distance, :access_time
+
+  def initialize(attrs)
+    @name = attrs[:station_name]
+    @address = attrs[:street_address]
+    @fuel_type = attrs[:distance]
+    @distance = attrs[:station_name]
+    @access_time = attrs[:access_days_time]
   end
 end
